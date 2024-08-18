@@ -60,7 +60,7 @@ pipeline {
                         // Update ECS service with the new image
                         sh """
                         aws eks update-kubeconfig --name yadhu-eks-cluster --region us-west-2
-                         kubectl rollout restart deployment/deployment
+                         kubectl rollout restart deployment/tomcat-deployment
                            """
                     }
                 }
