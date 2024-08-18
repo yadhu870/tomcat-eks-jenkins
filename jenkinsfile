@@ -60,6 +60,7 @@ pipeline {
 
                         sh """
                        aws eks update-kubeconfig --name yadhu-eks-cluster --region us-west-2
+                       kubectl get nodes
                        kubectl set image deployment/tomcat-deployment tomcat=public.ecr.aws/k2b2d0w8/yadhutomcat
                        kubectl rollout restart deployment/tomcat-deployment
                            """
