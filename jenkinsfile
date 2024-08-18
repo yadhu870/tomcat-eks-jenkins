@@ -53,13 +53,13 @@ pipeline {
                 }
             }
         }
-        stage('Deploy to ECS') {
+        stage('Deploy to Eks') {
             steps {
                 script {
-                    withAWS(credentials: AWS_CREDENTIALS_ID, region: AWS_DEFAULT_REGION) {
-                        // Update ECS service with the new image
+ // kubectl set image deployment/your-deployment-name your-container-name=${DOCKER_IMAGE}
                         sh """
-                         aws ecs update-service --cluster ${CLUSTER_NAME} --service ${SERVICE_NAME} --force-new-deployment --region ${AWS_DEFAULT_REGION}
+                         aws eks update-kubeconfig --name yadhu-eks-cluster --region us-west-2
+                         kubectl rollout restart deployment/deployment
                            """
                     }
                 }
