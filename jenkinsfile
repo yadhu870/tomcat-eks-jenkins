@@ -18,7 +18,7 @@ pipeline {
         stage("git fatch") {
             steps{
                 script {
-                    git 'https://github.com/yadhu870/tomcat-project.git'
+                    git 'https://github.com/yadhu870/tomcat-eks-jenkins.git'
                 }
             }
         }
@@ -59,7 +59,8 @@ pipeline {
                     withAWS(credentials: AWS_CREDENTIALS_ID, region: AWS_DEFAULT_REGION) {
                         // Update ECS service with the new image
                         sh """
-                         aws ecs update-service --cluster ${CLUSTER_NAME} --service ${SERVICE_NAME} --force-new-deployment --region ${AWS_DEFAULT_REGION}
+                        aws eks update-kubeconfig --name yadhu-eks-cluster --region us-west-2
+                         kubectl rollout restart deployment/deployment
                            """
                     }
                 }
